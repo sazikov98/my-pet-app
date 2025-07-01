@@ -1,0 +1,43 @@
+# Игнорирование зависимостей Node.js
+node_modules/
+
+# Лог-файлы
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Файлы конфигурации окружения
+.env
+.env.local
+.env.*.local
+
+# Выходные файлы сборки
+dist/
+build/
+out/
+
+# Файлы редактора VSCode
+.vscode/
+
+# Файлы операционной системы
+.DS_Store
+Thumbs.db
+
+# Результаты тестирования
+coverage/
+
+# Временные файлы ESLint
+.eslintcache
+
+# Файлы отладки
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Файлы документации
+docs/_book/

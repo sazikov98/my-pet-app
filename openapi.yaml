@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  title: Pet API
+  version: 1.0.0
+servers:
+    - url: http://localhost:8000/
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя питомца
+          example: Вася
+        age:
+          type: integer
+          description: Возраст питомца
+          example: 0
+        health:
+          type: integer
+          description: Здоровье питомца
+          example: 50
+        hunger:
+          type: integer
+          description: Голод питомца
+          example: 50
+        mood:
+          type: integer
+          description: Настроение питомца
+          example: 50
+        state:
+          type: string
+          description: Состояние питомца
+          enum: [alive, sick, dead]
+      required: [name, age, health, hunger, state]
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Код ошибки
+        detail:
+          type: string
+          description: Подробное описание ошибки
+      required: [code, detail]
+        
+paths:
+  /pet:
+    get:
+      operationId: getPet
+      summary: Получить состояние питомца
+      responses:
+        '200':
+          description: Успешное получение данных
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Питомец не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Питомец умер
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createPet
+      summary: Создать питомца
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Имя питомца
+                  example: Вася
+              required:
+                - name
+      responses:
+        '201':
+          description: Питомец создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Неверные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Питомец уже существует
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pet/feed:
+    post:
+      operationId: feedPet
+      summary: Кормить питомца
+      responses:
+        '200':
+          description: Питомец покормлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Питомец не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Питомец умер
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pet/heal:
+    post:
+      operationId: healPet
+      summary: Лечить питомца
+      responses:
+        '200':
+          description: Питомец полечен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Питомец не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Питомец умер
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pet/play:
+    post:
+      operationId: playWithPet
+      summary: Играть с питомцем
+      responses:
+        '200':
+          description: Игра завершена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: Питомец не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Питомец умер
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
